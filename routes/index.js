@@ -10,6 +10,10 @@ router.get('/list', function(req, res, next) {
   res.render('list');
 });
 
+router.get('/login', function(req, res, next) {
+  res.render('login');
+});
+
 router.get('/html', function(req, res, next) {
   res.render('testhtml.html');
 });
