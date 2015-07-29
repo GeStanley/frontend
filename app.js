@@ -37,25 +37,25 @@ app.use('/rest', function(req, res, next) {
   switch (method) {
     case "get":
       r = request.get({
-        uri: process.env.PROXY_URL + req.url,
+        uri: url + req.url,
         json: req.body
       });
       break;
     case "put":
       r = request.put({
-        uri: process.env.PROXY_URL + req.url,
+        uri: url + req.url,
         json: req.body
       });
       break;
     case "post":
       r = request.post({
-        uri: process.env.PROXY_URL + req.url,
+        uri: url + req.url,
         json: req.body
       });
       break;
     case "delete":
       r = request.del({
-        uri: process.env.PROXY_URL + req.url,
+        uri: url + req.url,
         json: req.body
       });
       break;
