@@ -28,7 +28,7 @@ app.use('/', routes);
 app.use('/users', users);
 
 //proxy server
-app.use('/rest'function(req, res, next) {
+app.use('/rest', function(req, res, next) {
 
   var url = '10.162.192.13:8080'+ req.url;
   var method, r;
