@@ -31,7 +31,7 @@ app.use('/users', users);
 //proxy server
 app.use('/rest', function(req, res, next) {
 
-  var url = '10.162.192.13:8080'+ req.url;
+  var url = 'http://10.162.192.13:8080'+ req.url;
   var method, r;
   method = req.method.toLowerCase();
 
