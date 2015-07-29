@@ -27,6 +27,44 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 
+//proxy server
+app.use('/rest'function(req, res, next) {
+
+  var url = '10.162.192.13:8080'+ req.url;
+  var method, r;
+  method = req.method.toLowerCase();
+
+  switch (method) {
+    case "get":
+      r = request.get({
+        uri: process.env.PROXY_URL + req.url,
+        json: req.body
+      });
+      break;
+    case "put":
+      r = request.put({
+        uri: process.env.PROXY_URL + req.url,
+        json: req.body
+      });
+      break;
+    case "post":
+      r = request.post({
+        uri: process.env.PROXY_URL + req.url,
+        json: req.body
+      });
+      break;
+    case "delete":
+      r = request.del({
+        uri: process.env.PROXY_URL + req.url,
+        json: req.body
+      });
+      break;
+    default:
+      return res.send("invalid method");
+  }
+  return req.pipe(r).pipe(res);
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
