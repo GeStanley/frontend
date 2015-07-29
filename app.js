@@ -4,7 +4,6 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var request = require('request')
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -27,44 +26,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-
-//proxy server
-app.use('/rest', function(req, res, next) {
-
-  var url = 'http://10.162.192.13:8080'+ req.url;
-  var method, r;
-  method = req.method.toLowerCase();
-
-  switch (method) {
-    case "get":
-      r = request.get({
-        uri: url + req.url,
-        json: req.body
-      });
-      break;
-    case "put":
-      r = request.put({
-        uri: url + req.url,
-        json: req.body
-      });
-      break;
-    case "post":
-      r = request.post({
-        uri: url + req.url,
-        json: req.body
-      });
-      break;
-    case "delete":
-      r = request.del({
-        uri: url + req.url,
-        json: req.body
-      });
-      break;
-    default:
-      return res.send("invalid method");
-  }
-  return req.pipe(r).pipe(res);
-});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
