@@ -39,6 +39,8 @@ app.use('/rest', proxy('10.162.192.13:8080', {
       	return require('url').parse('/rest' + req.url).path;
     }
 }));
+
+// routes
 app.use('/', routes);
 app.use('/users', users);
 
