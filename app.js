@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/rest', proxy('10.162.192.13:8080',{
+app.use('/rest', proxy('10.162.192.13', port:'8080',{
     forwardPath: function(req, res){
       return require('url').parse(req.url).path;
     }
