@@ -24,6 +24,7 @@ app.set('port', port);
 
 var options = {
   key: fs.readFileSync('certificates/key.pem'),
+  passphrase: "tisw",
   cert: fs.readFileSync('certificates/cert.pem')
 };
 
