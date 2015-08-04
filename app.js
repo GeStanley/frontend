@@ -25,11 +25,22 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// http redirect to https
+app.use(function(req, res, next) {
+  if(!req.secure) {
+    return res.redirect(['https://', req.get('Host'), req.url].join(''));
+  }
+  next();
+});
+
+// web server API request redirect to back-end server
 app.use('/rest', proxy('10.162.192.13:8080', {
     forwardPath: function(req, res){
       	return require('url').parse('/rest' + req.url).path;
     }
 }));
+
+// routes
 app.use('/', routes);
 app.use('/users', users);
 
